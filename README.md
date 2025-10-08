@@ -1,8 +1,6 @@
 # Welcome to copy of  your  project 
 
-## Project info
 
-**URL**: https://lovable.dev/projects/81d38970-686f-4c19-b35a-1259353956ec
 
 ## How can I start project
   npm start
