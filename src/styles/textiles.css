@@ -1,0 +1,194 @@
+/* Textiles Page Styles */
+
+/* Reuse hero styles from homepage for consistency */
+.hero-section {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slide.active { opacity: 1; }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #ffffff;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+.hero-subtitle { font-size: 1.125rem; margin-bottom: 1.5rem; opacity: 0.95; }
+.hero-cta { background: #ffffff; color: #000; font-weight: 700; padding: 12px 28px; border: 0; border-radius: 6px; cursor: pointer; }
+
+.hero-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.35); }
+.hero-nav.prev { left: 24px; }
+.hero-nav.next { right: 24px; }
+
+/* Grid helpers (kept minimal because we use utility classes in markup) */
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* Product card CTA link */
+.blog-read-more { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 2px solid #d4af37; border-radius: 6px; color: #d4af37; text-decoration: none; font-weight: 600; }
+.blog-read-more:hover { background: #d4af37; color: #fff; }
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.25rem; }
+  .hero-section { height: 60vh; }
+}
+
+/* ========================= */
+/* All Products (Textiles)   */
+/* ========================= */
+
+.all-products-page {
+  background: #ffffff;
+}
+
+.product-card .card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card .card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+}
+
+.product-card .card-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card .card-image img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.product-card .card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.product-card .price-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d4af37;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(212,175,55,0.35);
+}
+
+.product-card .card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card .card-category {
+  color: #6b7280; /* gray-500 */
+  font-size: 14px;
+  margin: 0 0 4px 0;
+}
+
+.product-card .card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937; /* gray-800 */
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-card .card-sub {
+  color: #9ca3af; /* gray-400 */
+  font-size: 12px;
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-card .card-actions {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.btn-outline,
+.btn-primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-outline {
+  border: 2px solid #e5e7eb;
+  color: #111827;
+  background: #ffffff;
+}
+
+.btn-outline:hover {
+  border-color: #c7cad1;
+}
+
+.btn-primary {
+  border: none;
+  background: #111827; /* near black */
+  color: #ffffff;
+}
+
+.btn-primary:hover { background: #0b1220; }
+
+.btn-primary.btn-added {
+  background: #16a34a; /* green-600 */
+}
+

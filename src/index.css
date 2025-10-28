@@ -1,13 +1,12 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* 
+ * This file is now empty as all styles have been moved to component-specific CSS files:
+ * 
+ * - src/styles/header.css     - Header & announcement bar styles
+ * - src/styles/homepage.css   - Homepage hero & testimonials styles  
+ * - src/styles/about.css      - About page specific styles
+ * - src/styles/contact.css    - Contact page & form styles
+ * - src/styles/footer.css     - Footer styles
+ * - src/styles/common.css     - Common utilities & base styles
+ * 
+ * Each React component now imports its own CSS files for better organization and performance.
+ */
