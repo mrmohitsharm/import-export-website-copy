@@ -2,8 +2,17 @@
 
 /* Blog Hero Section */
 .blog-hero {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   position: relative;
+  /* Background image with dark overlay similar to textiles banner */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('C:/goklyn run app/first-copy/public/images/making.png');
+  background-size: cover;
+  background-position: center;
+  color: #dbd4d4;
+  min-height: 320px;
+  display: flex;
+  align-items: left;
 }
 
 .blog-hero::before {
@@ -44,6 +53,8 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .category-tab {
@@ -72,7 +83,7 @@
 .blog-card {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   transition: all 0.3s ease;
   height: 100%;
@@ -82,13 +93,13 @@
 
 .blog-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
 }
 
 /* Blog Image */
 .blog-image-container {
   position: relative;
-  height: 200px;
+  height: 240px;
   overflow: hidden;
 }
 
@@ -172,6 +183,9 @@
 /* Blog Footer */
 .blog-footer {
   padding: 0 24px 24px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .blog-read-more {
@@ -198,6 +212,11 @@
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 90px;
 }
 
 .sidebar-content {
@@ -260,6 +279,7 @@
 @media (max-width: 768px) {
   .blog-hero {
     padding: 60px 0;
+    min-height: 260px;
   }
   
   .blog-hero h1 {
@@ -278,6 +298,7 @@
   .sidebar-card {
     margin-top: 32px;
   }
+  .blog-image-container { height: 200px; }
 }
 
 @media (max-width: 480px) {

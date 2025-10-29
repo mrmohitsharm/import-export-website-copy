@@ -9,7 +9,10 @@ const Blog = () => {
 
   // Sample blog posts data
   const blogPosts = [
+    
+    
     {
+      
       id: 1,
       title: 'The Art of Banarasi Silk Weaving',
       excerpt: 'Discover the ancient techniques and intricate patterns that make Banarasi silk so special.',
@@ -65,6 +68,7 @@ const Blog = () => {
     },
   ];
 
+  
   // Categories for filtering
   const categories = ['All', 'Textile Trends', 'Jewellery Care', 'Export Process', 'Fashion Trends'];
 
@@ -84,7 +88,7 @@ const Blog = () => {
       {/* Hero Section */}
       <section className="blog-hero py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center">
+          <div className="text-left">
             <h1 className="text-4xl font-bold mb-6 text-primary">
               Our Blog
             </h1>

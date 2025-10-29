@@ -85,7 +85,7 @@ const Textiles = () => {
               <a key={p.id} href="#" className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
-                  <span className="price-badge">${p.price}</span>
+                  <span className="price-badge price-badge--sm">${p.price}</span>
                 </div>
                 <div className="product-info">
                   <div>

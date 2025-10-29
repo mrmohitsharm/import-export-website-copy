@@ -473,6 +473,13 @@
   border: 1px solid rgba(0,0,0,0.08);
 }
 
+/* Homepage New Arrivals: static price pill below image */
+.products-section .price-badge--static {
+  position: static;
+  display: inline-block;
+  margin-right: auto;
+}
+
 .product-info {
   padding: 16px;
   display: flex;

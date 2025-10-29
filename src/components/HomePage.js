@@ -76,7 +76,7 @@ const HomePage = () => {
               <h1 className="hero-title">{slide.title}</h1>
               <p className="hero-subtitle">{slide.subtitle}</p>
               <button className="hero-cta">
-                <a href="/products">Explore Collection</a>
+                <a href="/textiles">Explore Collection</a>
               </button>
             </div>
           </div>
@@ -165,7 +165,7 @@ const HomePage = () => {
               { id: 3, name: "Kundan Necklace Set", price: "$320", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400&auto=format&fit=crop" },
               { id: 4, name: "Embroidered Clutch", price: "$120", image: "https://images.unsplash.com/photo-1519414144071-1e1e25360a86?q=80&w=1400&auto=format&fit=crop" },
             ].map((p) => (
-              <a key={p.id} href="/products" className="product-card">
+              <a key={p.id} href="/textiles" className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
                   <span className="price-badge">{p.price}</span>
