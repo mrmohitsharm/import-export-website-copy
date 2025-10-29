@@ -119,6 +119,80 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Benefits / Trust Strip */}
+      <section className="benefits-section">
+        <div className="container benefits-grid">
+          <div className="benefit-item">
+            <span className="material-symbols-outlined benefit-icon">local_shipping</span>
+            <div>
+              <p className="benefit-title">Fast Worldwide Shipping</p>
+              <p className="benefit-sub">Tracked, reliable delivery</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <span className="material-symbols-outlined benefit-icon">verified_user</span>
+            <div>
+              <p className="benefit-title">Secure Payments</p>
+              <p className="benefit-sub">128-bit SSL encryption</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <span className="material-symbols-outlined benefit-icon">support_agent</span>
+            <div>
+              <p className="benefit-title">24/7 Support</p>
+              <p className="benefit-sub">We’re here to help</p>
+            </div>
+          </div>
+          <div className="benefit-item">
+            <span className="material-symbols-outlined benefit-icon">restart_alt</span>
+            <div>
+              <p className="benefit-title">Easy Returns</p>
+              <p className="benefit-sub">Hassle-free process</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals */}
+      <section className="products-section">
+        <div className="container">
+          <h2 className="section-title">New Arrivals</h2>
+          <div className="products-grid">
+            {[
+              { id: 1, name: "Banarasi Silk Saree", price: "$250", image: "https://i.etsystatic.com/22698705/r/il/3ee0e4/2782061663/il_fullxfull.2782061663_3131.jpg" },
+              { id: 2, name: "Oxidized Anklet", price: "$85", image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1400&auto=format&fit=crop" },
+              { id: 3, name: "Kundan Necklace Set", price: "$320", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400&auto=format&fit=crop" },
+              { id: 4, name: "Embroidered Clutch", price: "$120", image: "https://images.unsplash.com/photo-1519414144071-1e1e25360a86?q=80&w=1400&auto=format&fit=crop" },
+            ].map((p) => (
+              <a key={p.id} href="/products" className="product-card">
+                <div className="product-image-wrap">
+                  <img src={p.image} alt={p.name} />
+                  <span className="price-badge">{p.price}</span>
+                </div>
+                <div className="product-info">
+                  <p className="product-name">{p.name}</p>
+                  <button className="btn-outline">View details</button>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="newsletter-section">
+        <div className="container newsletter-wrap">
+          <div className="newsletter-copy">
+            <h3 className="newsletter-title">Join Our Newsletter</h3>
+            <p className="newsletter-sub">Get new arrivals, deals and inspirations.</p>
+          </div>
+          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+            <input className="newsletter-input" type="email" placeholder="Enter your email" required />
+            <button className="newsletter-button" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </section>
     </>
   );
 };

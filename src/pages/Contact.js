@@ -139,13 +139,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-semibold mb-6">Contact Information</h2>
                 
                 <div className="space-y-6">
-                  <ContactInfoItem icon="📍">
-                    <h3 className="font-medium">Address</h3>
-                    <p className="text-muted-foreground">
-                      123 Export Plaza, Business District<br />
-                      New Delhi, 110001, India
-                    </p>
-                  </ContactInfoItem>
+                  
                   
                   <ContactInfoItem icon="📞">
                     <h3 className="font-medium">Phone</h3>
@@ -216,26 +210,7 @@ const Contact = () => {
       </section>
       
       {/* Map Section */}
-      <section className="map-section py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 fade-in-up">
-            <h2 className="text-3xl font-semibold mb-4">Our Location</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Visit our office to see our product samples in person
-            </p>
-          </div>
-          
-          <div className="map-container">
-            <iframe 
-              className="map-iframe"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56023.61205646883!2d77.03810094863276!3d28.645470299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d031a60466935%3A0x174cb3137b7f661c!2sExport%20Experts%20Global!5e0!3m2!1sen!2sin!4v1747753258937!5m2!1sen!2sin" 
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
-      </section>
+     
     </div>
   );
 };

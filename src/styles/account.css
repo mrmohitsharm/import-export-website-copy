@@ -1,0 +1,100 @@
+/* Account pages (Profile, Addresses, PAN) */
+
+.account-container {
+  max-width: 760px;
+  margin: 30px auto;
+  padding: 16px;
+}
+
+.account-card { background: #fff; border: 1px solid #eaeaea; border-radius: 12px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); }
+
+/* Generic card for account pages */
+.card { background: #fff; border: 1px solid #eaeaea; border-radius: 12px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); }
+
+.account-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.muted { color: #666; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.divider { border-top: 1px solid #eee; margin: 16px 0; }
+
+/* Buttons & inputs shared on account pages */
+.btn-primary { background: #111; color: #fff; border: none; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
+.btn-primary:hover { background: #000; }
+.btn-outline { background: transparent; border: 1px solid #222; color: #111; border-radius: 10px; padding: 10px 14px; cursor: pointer; }
+.btn-outline:hover { background: #111; color: #fff; }
+.form-input, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #e5e5e5; outline: none; transition: border-color .2s ease, box-shadow .2s ease; }
+.form-input:focus, .form-textarea:focus { border-color: #111; box-shadow: 0 0 0 3px rgba(0,0,0,0.06); }
+.form-textarea { min-height: 110px; resize: vertical; }
+.input-error { border-color: #dc2626; }
+
+/* Profile page header look */
+.profile-header { display: flex; align-items: center; gap: 14px; padding: 16px 0; }
+.profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: #f0f0f0; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.profile-greeting { margin: 0; font-size: 1.25rem; font-weight: 800; color: #1a1a1a; }
+.profile-sub { margin: 0; color: #666; font-size: .9rem; }
+
+/* Quick actions grid */
+.shortcut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.shortcut-grid .btn-outline { display: inline-flex; align-items: center; gap: 8px; justify-content: flex-start; width: 100%; }
+
+/* Sections */
+.section { padding: 16px; }
+.section h2 { margin: 0 0 8px 0; font-size: 1.1rem; }
+
+/* Spacing helpers used across pages */
+.space-y-2 > * + * { margin-top: 8px; }
+.space-y-3 > * + * { margin-top: 12px; }
+.space-y-4 > * + * { margin-top: 16px; }
+.space-y-5 > * + * { margin-top: 20px; }
+
+/* --- Profile page polish approximating reference --- */
+.container > .section-title { letter-spacing: .3px; }
+.card h2 { font-size: 1rem; letter-spacing: .2px; color: #1f2937; }
+.card .btn-outline .material-symbols-outlined { font-size: 20px; }
+.card .btn-outline { border-radius: 12px; padding: 10px 16px; transition: transform .15s ease, box-shadow .15s ease; }
+.card .btn-outline:hover { box-shadow: 0 8px 20px rgba(0,0,0,.08); transform: translateY(-2px); }
+
+/* list rows look inside cards (orders, settings) */
+.card .space-y-2 > a.btn-outline,
+.card .space-y-2 > button.btn-outline { width: 100%; justify-content: flex-start; }
+
+/* Track order button emphasis */
+.card a.btn-outline[href*="track-order"] { border-color: #0ea5e9; color: #0ea5e9; }
+.card a.btn-outline[href*="track-order"]:hover { background: #0ea5e9; color: #fff; }
+
+/* Logout primary button tone */
+a.btn-primary[href*="logout"],
+button.btn-primary.logout { background: #ef4444; }
+a.btn-primary[href*="logout"]:hover,
+button.btn-primary.logout:hover { background: #dc2626; }
+
+/* Address item row look */
+.card .font-medium { color: #111827; }
+.text-muted-foreground { color: #6b7280; }
+.card .material-symbols-outlined { vertical-align: middle; }
+
+/* Order summary block */
+.divider { border-color: #e5e7eb; }
+
+@media (max-width: 640px) {
+  .account-container { padding: 12px; }
+  .profile-header { flex-direction: row; align-items: center; }
+}
+
+
