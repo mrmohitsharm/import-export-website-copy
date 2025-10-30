@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import '../styles/common.css';
 import '../styles/textiles.css';
 
-
 const Jewellery = () => {
-  // Products sourced from provided snippets; filtered to show textiles-focused items
+  // All product image paths are corrected to public-root relative URLs
   const allProducts = [
     { id: 1, name: 'Banarasi Silk Saree', category: 'Textiles', subCategory: 'Sarees', price: 250, material: 'Silk', image: '/images/Banarasi-saare.png' },
-    { id: 2, name: 'Bridal Elegance Lehenga', category: 'Textiles', subCategory: 'Lehenga', price: 350, material: 'cotton', image: '/images/0.png' },
-    { id: 3, name: 'Lightweight Party Saree', category: 'Textiles', subCategory: 'Saree', price: 85, material: 'silk', image: '/images/Party.png' },
+    { id: 2, name: 'Bridal Elegance Lehenga', category: 'Textiles', subCategory: 'Lehenga', price: 350, material: 'Cotton', image: '/images/0.png' },
+    { id: 3, name: 'Lightweight Party Saree', category: 'Textiles', subCategory: 'Saree', price: 85, material: 'Silk', image: '/images/Party.png' },
     { id: 4, name: 'Pashmina Shawl', category: 'Textiles', subCategory: 'Shawls', price: 180, material: 'Pashmina Wool', image: '/images/Pashmina-Shawl.png' },
-    { id: 5, name: 'Textured Beige Kurta Set', category: 'Textiles', subCategory: 'Kurta', price: 75, material: 'cotton', image: '/images/Kurta.png' },
+    { id: 5, name: 'Textured Beige Kurta Set', category: 'Textiles', subCategory: 'Kurta', price: 75, material: 'Cotton', image: '/images/Kurta.png' },
     { id: 6, name: 'Phulkari Dupatta', category: 'Textiles', subCategory: 'Dupattas', price: 95, material: 'Cotton', image: '/images/Phulkari-Dupatta.png' },
     { id: 7, name: 'Painted Boho Pants', category: 'Textiles', subCategory: 'Pants', price: 40, material: 'Silk', image: '/images/Pants.png' },
     { id: 9, name: 'Chanderi Cotton Fabric', category: 'Textiles', subCategory: 'Fabrics', price: 120, material: 'Cotton', image: '/images/Chanderi-Cotton-Fabric.png' },
@@ -20,17 +19,18 @@ const Jewellery = () => {
   ];
 
   const textilesProducts = allProducts.filter(p => p.category === 'Textiles');
+
   const categoryInfo = {
     title: 'Jewellery',
     description:
       'Discover our exquisite collection of handcrafted jewellery from skilled artisans across India. From luxurious gold necklaces to intricately designed silver earrings, each piece tells a story of traditional craftsmanship and timeless elegance.',
     image: '/images/jewellaryHono.png',
     subcategories: [
-      { name: 'Bridal Gold Jewellery Designs', image: 'images/BridalGoldJewelleryDesigns.png' },
-      { name: 'Diamond Jewellery Set', image: 'images/DiamondJewellerySet.png' },
+      { name: 'Bridal Gold Jewellery Designs', image: '/images/BridalGoldJewelleryDesigns.png' },
+      { name: 'Diamond Jewellery Set', image: '/images/DiamondJewellerySet.png' },
       { name: 'Indian Bridal Diamond Jewellery', image: '/images/IndianBridalDiamondJewellery.png' },
       { name: 'Artificial Jewellery Set for Wedding', image: '/images/ArtificialJewellerySetforWedding.png' },
-      { name: 'Jewellery Brand', image: 'images/JewelleryBrand.png' },
+      { name: 'Jewellery Brand', image: '/images/JewelleryBrand.png' },
     ],
   };
 
@@ -102,7 +102,7 @@ const Jewellery = () => {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA Section */}
       <section className="textiles-cta">
         <div className="textiles-cta-inner">
           <h3>Looking for Something Special?</h3>
@@ -113,4 +113,5 @@ const Jewellery = () => {
     </div>
   );
 };
+
 export default Jewellery;
