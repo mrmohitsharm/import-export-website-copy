@@ -163,7 +163,7 @@ const HomePage = () => {
               { id: 1, name: "Banarasi Silk Saree", price: "$250", image: "https://i.etsystatic.com/22698705/r/il/3ee0e4/2782061663/il_fullxfull.2782061663_3131.jpg" },
               { id: 2, name: "Oxidized Anklet", price: "$85", image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1400&auto=format&fit=crop" },
               { id: 3, name: "Kundan Necklace Set", price: "$320", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400&auto=format&fit=crop" },
-              { id: 4, name: "Embroidered Clutch", price: "$120", image: "https://images.unsplash.com/photo-1519414144071-1e1e25360a86?q=80&w=1400&auto=format&fit=crop" },
+              { id: 4, name: "Embroidered Clutch", price: "$120", image: "/images/EmbroideredClutch.png" },
             ].map((p) => (
               <a key={p.id} href="/textiles" className="product-card">
                 <div className="product-image-wrap">

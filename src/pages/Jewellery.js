@@ -6,16 +6,16 @@ import '../styles/textiles.css';
 const Jewellery = () => {
   // All product image paths are corrected to public-root relative URLs
   const allProducts = [
-    { id: 1, name: 'Banarasi Silk Saree', category: 'Textiles', subCategory: 'Sarees', price: 250, material: 'Silk', image: '/images/Banarasi-saare.png' },
-    { id: 2, name: 'Bridal Elegance Lehenga', category: 'Textiles', subCategory: 'Lehenga', price: 350, material: 'Cotton', image: '/images/0.png' },
-    { id: 3, name: 'Lightweight Party Saree', category: 'Textiles', subCategory: 'Saree', price: 85, material: 'Silk', image: '/images/Party.png' },
-    { id: 4, name: 'Pashmina Shawl', category: 'Textiles', subCategory: 'Shawls', price: 180, material: 'Pashmina Wool', image: '/images/Pashmina-Shawl.png' },
-    { id: 5, name: 'Textured Beige Kurta Set', category: 'Textiles', subCategory: 'Kurta', price: 75, material: 'Cotton', image: '/images/Kurta.png' },
-    { id: 6, name: 'Phulkari Dupatta', category: 'Textiles', subCategory: 'Dupattas', price: 95, material: 'Cotton', image: '/images/Phulkari-Dupatta.png' },
-    { id: 7, name: 'Painted Boho Pants', category: 'Textiles', subCategory: 'Pants', price: 40, material: 'Silk', image: '/images/Pants.png' },
-    { id: 9, name: 'Chanderi Cotton Fabric', category: 'Textiles', subCategory: 'Fabrics', price: 120, material: 'Cotton', image: '/images/Chanderi-Cotton-Fabric.png' },
-    { id: 11, name: 'Hand Block Printed Scarf', category: 'Textiles', subCategory: 'Scarves', price: 45, material: 'Cotton', image: '/images/Hand-Block-Printed-Scarf.png' },
-    { id: 12, name: 'Rani Pink Mirror Work Kurti', category: 'Textiles', subCategory: 'Kurti', price: 160, material: 'Silk', image: '/images/Rani.png' },
+    { id: 1, name: 'Six Pack Ring', category: 'Textiles', subCategory: 'Ring', price: 500, material: 'Silk', image: '/images/jewellery section/sixpackring.png' },
+    { id: 2, name: '925 Silver Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Cotton', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
+    { id: 3, name: 'VALLEY OF JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silk', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
+    { id: 4, name: 'Diamond Pearl Curved Zircon Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Pashmina Wool', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
+    { id: 5, name: 'Diamond Necklace Sets ', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Cotton', image: '/images/jewellery section/DiamondNecklaceSets.png' },
+    { id: 6, name: 'Beautiful antique Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Cotton', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
+    { id: 7, name: 'Sterling Silver Ladies Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silk', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
+    { id: 9, name: 'Orlando Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Cotton', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
+    { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Cotton', image: '/images/jewellery section/GoldRing.png' },
+    { id: 12, name: 'Earrings with Beads for Women', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Silk', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
   ];
 
   const textilesProducts = allProducts.filter(p => p.category === 'Textiles');
