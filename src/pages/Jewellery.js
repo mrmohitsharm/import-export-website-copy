@@ -16,8 +16,8 @@ const Jewellery = () => {
     { id: 9, name: 'Orlando Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Platinum', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
     { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Gold', image: '/images/jewellery section/GoldRing.png' },
     { id: 12, name: 'Earrings with Beads for Women', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Gold', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
-    { id: 13, name: 'Gold Chain For Men', category: 'Textiles', subCategory: 'Chain', price: 545, material: 'Gold', image: '/images/jewellery section/GoldChainForMen.png' },
-    { id: 14, name: 'Gold Polished Chain', category: 'Textiles', subCategory: 'Chain', price: 200, material: 'Gold', image: '/images/jewellery section/PolishedByGold.png' },
+    { id: 13, name: 'Gold Chain For Men', category: 'Textiles', subCategory: 'Chain', price: 240, material: 'Gold', image: '/images/jewellery section/GoldChainForMen.png' },
+    { id: 14, name: 'Gold Polished Chain', category: 'Textiles', subCategory: 'Chain', price: 100, material: 'Gold', image: '/images/jewellery section/PolishedByGold.png' },
   ];
 
   const textilesProducts = allProducts.filter(p => p.category === 'Textiles');
