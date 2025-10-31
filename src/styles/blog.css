@@ -4,9 +4,9 @@
 .blog-hero {
   position: relative;
   /* Background image with dark overlay similar to textiles banner */
+  /* The background image is applied inline from Blog.js to avoid CSS bundler path resolution issues. */
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url('C:/goklyn run app/first-copy/public/images/making.png');
+    linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45));
   background-size: cover;
   background-position: center;
   color: #dbd4d4;

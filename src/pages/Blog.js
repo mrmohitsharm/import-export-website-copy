@@ -86,7 +86,7 @@ const Blog = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="blog-hero py-16">
+      <section className="blog-hero py-16" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/making.png')` }}>
         <div className="container mx-auto px-4">
           <div className="text-left">
             <h1 className="text-4xl font-bold mb-6 text-primary">
