@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import "../../styles/common.css";
 import "../../styles/auth.css";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +21,8 @@ const Login = () => {
     setTimeout(() => {
       localStorage.setItem("currentUser", JSON.stringify({ email }));
       setLoading(false);
-      navigate("/account/profile");
+      const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
+      navigate(redirectTo, { replace: true });
     }, 800);
   };
 

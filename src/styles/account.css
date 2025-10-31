@@ -84,6 +84,8 @@ button.btn-primary.logout { background: #ef4444; }
 a.btn-primary[href*="logout"]:hover,
 button.btn-primary.logout:hover { background: #dc2626; }
 
+/* Profile ornaments removed per request */
+
 /* Address item row look */
 .card .font-medium { color: #111827; }
 .text-muted-foreground { color: #6b7280; }

@@ -29,7 +29,7 @@ const HomePage = () => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 5000); // Change slide every 5 seconds
     return () => clearInterval(timer);
-  }, []);
+  }, [heroSlides.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
@@ -44,7 +44,7 @@ const HomePage = () => {
     {
       name: "Sarah Johnson",
       role: "Fashion Retailer",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+      image: "https://physicaleducationandwellness.mit.edu/wp-content/uploads/Untitled-1.png",
       quote: "The quality of textiles and the attention to detail in every piece is exceptional. Our customers love the authentic craftsmanship."
     },
     {

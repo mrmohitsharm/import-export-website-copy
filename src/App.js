@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "./styles/common.css";
 
 // Import components
@@ -15,6 +15,7 @@ import Textiles from "./pages/Textiles";
 import Jewellery from "./pages/Jewellery";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
+import Logout from "./pages/auth/Logout";
 import ProfilePage from "./pages/account/ProfilePage";
 import ProfileInformation from "./pages/account/ProfileInformation";
 import ManageAddresses from "./pages/account/ManageAddresses";
@@ -24,6 +25,19 @@ import Cart from "./pages/Cart";
 
 
 function App() {
+  const RequireAuth = ({ children }) => {
+    const location = useLocation();
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    } catch (e) {
+      currentUser = null;
+    }
+    if (!currentUser) {
+      return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+    }
+    return children;
+  };
   return (
     <Router>
       <Layout>
@@ -38,12 +52,13 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* Alias for profile to support /profile path */}
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/account" element={<ProfilePage />} />
-          <Route path="/account/profile" element={<ProfileInformation />} />
-          <Route path="/account/addresses" element={<ManageAddresses />} />
-          <Route path="/account/pan" element={<PANCardInformation />} />
+          <Route path="/logout" element={<Logout />} />
+          {/* Protected account routes */}
+          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/account" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/account/profile" element={<RequireAuth><ProfileInformation /></RequireAuth>} />
+          <Route path="/account/addresses" element={<RequireAuth><ManageAddresses /></RequireAuth>} />
+          <Route path="/account/pan" element={<RequireAuth><PANCardInformation /></RequireAuth>} />
         </Routes>
       </Layout>
     </Router>

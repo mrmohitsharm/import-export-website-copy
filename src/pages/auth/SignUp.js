@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import "../../styles/common.css";
 import "../../styles/auth.css";
 
@@ -11,9 +11,14 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name || !email || !password) {
+      setError("Please fill all fields.");
+      return;
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -22,7 +27,8 @@ const SignUp = () => {
     setTimeout(() => {
       localStorage.setItem("currentUser", JSON.stringify({ name, email }));
       setLoading(false);
-      navigate("/account/profile");
+      const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
+      navigate(redirectTo, { replace: true });
     }, 800);
   };
 
