@@ -6,16 +6,18 @@ import '../styles/textiles.css';
 const Jewellery = () => {
   // All product image paths are corrected to public-root relative URLs
   const allProducts = [
-    { id: 1, name: 'Six Pack Ring', category: 'Textiles', subCategory: 'Ring', price: 500, material: 'Silk', image: '/images/jewellery section/sixpackring.png' },
-    { id: 2, name: '925 Silver Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Cotton', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
-    { id: 3, name: 'VALLEY OF JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silk', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
-    { id: 4, name: 'Diamond Pearl Curved Zircon Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Pashmina Wool', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
-    { id: 5, name: 'Diamond Necklace Sets ', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Cotton', image: '/images/jewellery section/DiamondNecklaceSets.png' },
-    { id: 6, name: 'Beautiful antique Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Cotton', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
-    { id: 7, name: 'Sterling Silver Ladies Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silk', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
-    { id: 9, name: 'Orlando Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Cotton', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
-    { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Cotton', image: '/images/jewellery section/GoldRing.png' },
-    { id: 12, name: 'Earrings with Beads for Women', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Silk', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
+    { id: 1, name: 'Six Pack Ring', category: 'Textiles', subCategory: 'Ring', price: 500, material: 'Gold', image: '/images/jewellery section/sixpackring.png' },
+    { id: 2, name: '925 Silver Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Platinum', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
+    { id: 3, name: 'VALLEY OF JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silver', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
+    { id: 4, name: 'Diamond Pearl Curved Zircon Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Silver', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
+    { id: 5, name: 'Diamond Necklace Sets ', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Diamonds', image: '/images/jewellery section/DiamondNecklaceSets.png' },
+    { id: 6, name: 'Beautiful antique Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Gold', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
+    { id: 7, name: 'Sterling Silver Ladies Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silver', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
+    { id: 9, name: 'Orlando Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Platinum', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
+    { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Gold', image: '/images/jewellery section/GoldRing.png' },
+    { id: 12, name: 'Earrings with Beads for Women', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Gold', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
+    { id: 13, name: 'Gold Chain For Men', category: 'Textiles', subCategory: 'Chain', price: 545, material: 'Gold', image: '/images/jewellery section/GoldChainForMen.png' },
+    { id: 14, name: 'Gold Polished Chain', category: 'Textiles', subCategory: 'Chain', price: 200, material: 'Gold', image: '/images/jewellery section/PolishedByGold.png' },
   ];
 
   const textilesProducts = allProducts.filter(p => p.category === 'Textiles');
