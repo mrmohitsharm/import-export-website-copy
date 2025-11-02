@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
+import { useCart } from '../context/CartContext';
 import '../styles/header.css';
 import '../styles/footer.css';
 import '../styles/common.css';
 
 const Layout = ({ children }) => {
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
+
   return (
     <>
       {/* Announcement Bar */}
@@ -38,8 +42,9 @@ const Layout = ({ children }) => {
             <Link to="/profile" className="action-link">
               <span className="material-symbols-outlined">person</span>
             </Link>
-            <Link to="/cart" className="action-link">
+            <Link to="/cart" className="action-link cart-link">
               <span className="material-symbols-outlined">shopping_cart</span>
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>
           </div>
         </div>

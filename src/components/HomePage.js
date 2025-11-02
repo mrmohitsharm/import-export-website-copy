@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import "../styles/common.css";
 
@@ -165,14 +166,14 @@ const HomePage = () => {
               { id: 3, name: "Kundan Necklace Set", price: "$320", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400&auto=format&fit=crop" },
               { id: 4, name: "Embroidered Clutch", price: "$120", image: "/images/EmbroideredClutch.png" },
             ].map((p) => (
-              <a key={p.id} href="/textiles" className="product-card">
+              <a key={p.id} href="#" className="product-card" onClick={(e) => e.preventDefault()}>
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
                   <span className="price-badge">{p.price}</span>
                 </div>
                 <div className="product-info">
                   <p className="product-name">{p.name}</p>
-                  <button className="btn-outline">View details</button>
+                  <Link to="/product/banarasi-silk-saree" className="btn-outline" onClick={(e) => e.stopPropagation()}>View details</Link>
                 </div>
               </a>
             ))}

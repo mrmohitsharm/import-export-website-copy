@@ -1,21 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import '../styles/common.css';
 import '../styles/textiles.css';
 
 const Jewellery = () => {
+  const { addToCart } = useCart();
+  
   // All product image paths are corrected to public-root relative URLs
   const allProducts = [
     { id: 1, name: 'Six Pack Ring', category: 'Textiles', subCategory: 'Ring', price: 500, material: 'Gold', image: '/images/jewellery section/sixpackring.png' },
-    { id: 2, name: '925 Silver Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Platinum', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
-    { id: 3, name: 'VALLEY OF JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silver', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
-    { id: 4, name: 'Diamond Pearl Curved Zircon Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Silver', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
-    { id: 5, name: 'Diamond Necklace Sets ', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Diamonds', image: '/images/jewellery section/DiamondNecklaceSets.png' },
-    { id: 6, name: 'Beautiful antique Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Gold', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
-    { id: 7, name: 'Sterling Silver Ladies Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silver', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
-    { id: 9, name: 'Orlando Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Platinum', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
+    { id: 2, name: 'Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Platinum', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
+    { id: 3, name: 'JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silver', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
+    { id: 4, name: 'Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Silver', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
+    { id: 5, name: 'Diamond Necklace', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Diamonds', image: '/images/jewellery section/DiamondNecklaceSets.png' },
+    { id: 6, name: 'Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Gold', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
+    { id: 7, name: 'Silver Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silver', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
+    { id: 9, name: 'Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Platinum', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
     { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Gold', image: '/images/jewellery section/GoldRing.png' },
-    { id: 12, name: 'Earrings with Beads for Women', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Gold', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
+    { id: 12, name: 'Earrings with Beads', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Gold', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
     { id: 13, name: 'Gold Chain For Men', category: 'Textiles', subCategory: 'Chain', price: 240, material: 'Gold', image: '/images/jewellery section/GoldChainForMen.png' },
     { id: 14, name: 'Gold Polished Chain', category: 'Textiles', subCategory: 'Chain', price: 100, material: 'Gold', image: '/images/jewellery section/PolishedByGold.png' },
   ];
@@ -85,7 +88,7 @@ const Jewellery = () => {
           <p className="textiles-muted">Browse our curated selection of textiles</p>
           <div className="products-grid">
             {textilesProducts.map((p) => (
-              <a key={p.id} href="#" className="product-card">
+              <a key={p.id} href="#" className="product-card" onClick={(e) => e.preventDefault()}>
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
                   <span className="price-badge price-badge--sm">${p.price}</span>
@@ -96,7 +99,20 @@ const Jewellery = () => {
                     <p className="card-title">{p.name}</p>
                     <p className="card-sub">{p.material}</p>
                   </div>
-                  <button className="btn-outline">Details</button>
+                  <div className="product-actions">
+                    <Link to="/product/banarasi-silk-saree" className="btn-outline" onClick={(e) => e.stopPropagation()}>Details</Link>
+                    <button 
+                      className="btn-primary add-cart-btn" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addToCart(p);
+                      }}
+                    >
+                      <span className="material-symbols-outlined">shopping_cart</span>
+                      Add
+                    </button>
+                  </div>
                 </div>
               </a>
             ))}

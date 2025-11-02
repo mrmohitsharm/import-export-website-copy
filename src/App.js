@@ -21,6 +21,8 @@ import ProfileInformation from "./pages/account/ProfileInformation";
 import ManageAddresses from "./pages/account/ManageAddresses";
 import PANCardInformation from "./pages/account/PANCardInformation";
 import Cart from "./pages/Cart";
+import BanarasiSilkSaree from "./pages/BanarasiSilkSaree";
+import { CartProvider } from "./context/CartContext";
 
 
 
@@ -39,8 +41,9 @@ function App() {
     return children;
   };
   return (
-    <Router>
-      <Layout>
+    <CartProvider>
+      <Router>
+        <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<Home />} />
@@ -50,6 +53,7 @@ function App() {
           <Route path="/textiles" element={<Textiles />} />
           <Route path="/jewellery" element={<Jewellery />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product/banarasi-silk-saree" element={<BanarasiSilkSaree />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/logout" element={<Logout />} />
@@ -60,8 +64,9 @@ function App() {
           <Route path="/account/addresses" element={<RequireAuth><ManageAddresses /></RequireAuth>} />
           <Route path="/account/pan" element={<RequireAuth><PANCardInformation /></RequireAuth>} />
         </Routes>
-      </Layout>
-    </Router>
+        </Layout>
+      </Router>
+    </CartProvider>
   );
 }
 

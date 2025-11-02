@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/common.css';
 import '../styles/blog.css';
+import '../styles/textiles.css';
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,15 +87,12 @@ const Blog = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="blog-hero py-16" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/making.png')` }}>
-        <div className="container mx-auto px-4">
-          <div className="text-left">
-            <h1 className="text-4xl font-bold mb-6 text-primary">
-              Our Blog
-            </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Insights, trends, and stories from the world of textiles, jewellery, and export business
-            </p>
+      <section className="textiles-banner">
+        <img src="/images/ccc.png" className="banner-image" alt="Our Blog" />
+        <div className="banner-overlay">
+          <div className="banner-content">
+            <h1 className="banner-title">Our Blog</h1>
+            <p className="banner-desc">Insights, trends, and stories from the world of textiles, jewellery, and export business</p>
           </div>
         </div>
       </section>
@@ -102,63 +100,43 @@ const Blog = () => {
       {/* Blog Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Main Content */}
-            <div className="w-full md:w-3/4">
-              {/* Search and Filter */}
-              <div className="mb-8">
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                  <div className="relative flex-grow">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">search</span>
-                    <input 
-                      placeholder="Search articles..." 
-                      className="search-input pl-10"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                </div>
-                
-                {/* Category Tabs */}
-                <div className="category-tabs mb-6">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      className={`category-tab ${activeCategory === category ? 'active' : ''}`}
-                      onClick={() => setActiveCategory(category)}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-                
-                {/* Blog Posts Grid */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  {filteredPosts.map((post) => (
-                    <BlogPostCard key={post.id} post={post} />
-                  ))}
+          <div className="w-full">
+            {/* Search and Filter */}
+            <div className="mb-8">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <div className="relative flex-grow">
+                  <span className="material-symbols-outlined search-icon">search</span>
+                  <input 
+                    placeholder="Search articles..." 
+                    className="search-input"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 </div>
               </div>
-            </div>
-            
-            {/* Sidebar */}
-            <div className="w-full md:w-1/4">
-              <div className="space-y-8">
-                <div className="sidebar-card">
-                  <div className="sidebar-content">
-                    <h3 className="text-lg font-semibold mb-4">Categories</h3>
-                    <ul className="space-y-2">
-                      {categories.slice(1).map((category) => (
-                        <li key={category}>
-                          <Link to={`/blog/category/${category.toLowerCase().replace(' ', '-')}`} className="sidebar-link">
-                            {category} ({blogPosts.filter(post => post.category === category).length})
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                
+              
+              {/* Category Tabs */}
+              <div className="category-tabs mb-6">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    className={`category-tab ${activeCategory === category ? 'active' : ''}`}
+                    onClick={() => setActiveCategory(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+              
+              {/* Blog Posts Grid */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {filteredPosts.map((post) => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
+
+              {/* Recent Posts and Subscribe Sections */}
+              <div className="blog-info-sections">
                 <div className="sidebar-card">
                   <div className="sidebar-content">
                     <h3 className="text-lg font-semibold mb-4">Recent Posts</h3>

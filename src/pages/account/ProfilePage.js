@@ -8,7 +8,7 @@ const ProfilePage = () => {
   const name = current.name || current.email || "username";
 
   return (
-    <div className="container" style={{ maxWidth: 560, padding: 20 }}>
+    <div className="container" style={{ maxWidth: 320, padding: 20 }}>
       <h1 className="section-title" style={{ fontSize: "1.75rem", marginTop: 10 }}>Hello, {name}</h1>
 
       <div className="space-y-4" style={{ marginTop: 14 }}>

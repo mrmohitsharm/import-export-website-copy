@@ -1,12 +1,18 @@
 /* Auth pages (Login / SignUp) */
 
-.auth-container {
-  max-width: 560px;
-  margin: 40px auto;
+.auth-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f4f8;
   padding: 20px;
-  /* fade/slide entrance */
-  animation: authFadeIn .6s ease-out both;
-  position: relative;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 /* Jewellery themed background image (from jewellery section) */
@@ -16,37 +22,38 @@
 
 .card {
   background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   position: relative;
-  /* colorful ambient glow */
-  box-shadow:
-    0 12px 24px rgba(0,0,0,.06),
-    0 0 24px rgba(255, 0, 128, .12),
-    0 0 36px rgba(0, 176, 255, .12),
-    0 0 48px rgba(120, 0, 255, .10);
-  /* soft pop-in */
-  transform: translateY(10px) scale(.98);
+  padding: 40px 32px;
   animation: cardPop .5s .1s cubic-bezier(.2,.8,.2,1) both;
 }
 
-/* elevated gradient aura around the card */
+.auth-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+}
+
+.auth-subtitle {
+  margin: 0 0 32px 0;
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* removed colorful background gradient */
 .card::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  background: conic-gradient(
-    from 120deg,
-    rgba(255,0,122,.45),
-    rgba(0,163,255,.45),
-    rgba(125,0,255,.45),
-    rgba(255,0,122,.45)
-  );
-  filter: blur(26px);
-  z-index: -1;
-  border-radius: 16px;
-  opacity: .45;
+  display: none;
 }
 
 .form-group {
@@ -58,11 +65,41 @@
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-radius: 10px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #e5e7eb;
   outline: none;
-  transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+  font-size: 15px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  background: #ffffff;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.password-toggle:hover {
+  color: #374151;
+}
+
+.password-toggle .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .form-textarea {
@@ -72,9 +109,8 @@
 
 .form-input:focus,
 .form-textarea:focus {
-  border-color: #111;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
-  transform: translateY(-1px);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .input-error {
@@ -102,6 +138,35 @@
   box-shadow: 0 2px 6px rgba(0,0,0,.06);
 }
 
+.btn-signin {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background .2s ease, transform .1s ease, box-shadow .2s ease;
+  margin-top: 8px;
+}
+
+.btn-signin:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-signin:active {
+  transform: translateY(0);
+}
+
+.btn-signin:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .btn-outline {
   background: transparent;
   border: 1px solid #222;
@@ -123,6 +188,69 @@
 .space-y-3 > * + * { margin-top: 12px; }
 .space-y-4 > * + * { margin-top: 16px; }
 .space-y-5 > * + * { margin-top: 20px; }
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #3b82f6;
+}
+
+.forgot-password {
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color .2s ease;
+}
+
+.forgot-password:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #dc2626;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.auth-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .2s ease;
+}
+
+.auth-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
 
 /* Stagger form fields softly */
 .auth-container .card form > * { opacity: 0; transform: translateY(6px); animation: itemRise .45s ease forwards; }

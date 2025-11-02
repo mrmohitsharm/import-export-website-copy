@@ -501,11 +501,16 @@
   padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .btn-outline:hover {
   background: #111;
   color: #fff;
+  text-decoration: none;
 }
 
 /* Newsletter */

@@ -35,13 +35,12 @@ const Contact = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="contact-hero py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center fade-in-up">
-            <h1 className="text-4xl font-bold mb-6 text-primary">
-              Get in Touch
-            </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+      <section className="contact-hero-banner">
+        <img src="/images/hero-contact.png" className="contact-banner-image" alt="Contact us" />
+        <div className="contact-banner-overlay">
+          <div className="contact-banner-content">
+            <h1 className="contact-banner-title">Get in Touch</h1>
+            <p className="contact-banner-desc">
               Have questions about our products or services? We'd love to hear from you!
             </p>
           </div>
