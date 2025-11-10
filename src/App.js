@@ -21,6 +21,8 @@ import ProfileInformation from "./pages/account/ProfileInformation";
 import ManageAddresses from "./pages/account/ManageAddresses";
 import PANCardInformation from "./pages/account/PANCardInformation";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 import BanarasiSilkSaree from "./pages/BanarasiSilkSaree";
 import { CartProvider } from "./context/CartContext";
 
@@ -53,6 +55,8 @@ function App() {
           <Route path="/textiles" element={<Textiles />} />
           <Route path="/jewellery" element={<Jewellery />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/product/banarasi-silk-saree" element={<BanarasiSilkSaree />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

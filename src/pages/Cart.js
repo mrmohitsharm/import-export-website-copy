@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "../styles/common.css";
 import "../styles/cart.css";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getCartTotal } = useCart();
   const total = getCartTotal();
 
@@ -47,7 +48,7 @@ const Cart = () => {
               <strong>${total.toFixed(2)}</strong>
             </div>
             <div className="divider"></div>
-            <button className="btn-primary checkout-btn">Proceed to Checkout</button>
+            <button className="btn-primary checkout-btn" onClick={() => navigate('/checkout')}>Proceed to Checkout</button>
           </div>
         </div>
       )}
