@@ -449,6 +449,21 @@
   text-decoration: underline;
 }
 
+.link-button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  display: inline;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
 .empty-checkout {
   text-align: center;
   padding: 60px 20px;

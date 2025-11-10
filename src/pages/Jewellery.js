@@ -88,7 +88,7 @@ const Jewellery = () => {
           <p className="textiles-muted">Browse our curated selection of textiles</p>
           <div className="products-grid">
             {textilesProducts.map((p) => (
-              <a key={p.id} href="#" className="product-card" onClick={(e) => e.preventDefault()}>
+              <div key={p.id} className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
                   <span className="price-badge price-badge--sm">${p.price}</span>
@@ -104,7 +104,6 @@ const Jewellery = () => {
                     <button 
                       className="btn-primary add-cart-btn" 
                       onClick={(e) => {
-                        e.preventDefault();
                         e.stopPropagation();
                         addToCart(p);
                       }}
@@ -114,7 +113,7 @@ const Jewellery = () => {
                     </button>
                   </div>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>

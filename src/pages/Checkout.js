@@ -159,7 +159,6 @@ const Checkout = () => {
                   {cartItems.map((item) => {
                     const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
                     const qty = item.quantity || 1;
-                    const itemTotal = price * qty;
                     const originalPrice = price * 2; // Assuming 50% discount
                     const discount = originalPrice - price;
                     const discountPercent = Math.round((discount / originalPrice) * 100);
@@ -259,8 +258,8 @@ const Checkout = () => {
             </div>
             <p className="terms-text">
               By continuing with the order, you confirm that you are above 18 years of age, and you agree to the{' '}
-              <a href="#" onClick={(e) => e.preventDefault()}>Terms of Use</a> and{' '}
-              <a href="#" onClick={(e) => e.preventDefault()}>Privacy Policy</a>.
+              <button type="button" className="link-button" onClick={(e) => e.preventDefault()}>Terms of Use</button> and{' '}
+              <button type="button" className="link-button" onClick={(e) => e.preventDefault()}>Privacy Policy</button>.
             </p>
           </div>
         </div>
