@@ -148,6 +148,10 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
 }
 
 .social-link::before {

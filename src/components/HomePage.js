@@ -109,7 +109,7 @@ const HomePage = () => {
               { id: 9, name: "Bridal Necklace Sets", price: "$705", image: "/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png" },
               { id: 10, name: "Hand Block Scarf", price: "$45", image: "/images/Hand-Block-Printed-Scarf.png" },
             ].map((p) => (
-              <a key={p.id} href="#" className="product-card" onClick={(e) => e.preventDefault()}>
+              <div key={p.id} className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
                   <span className="price-badge">{p.price}</span>
@@ -118,7 +118,7 @@ const HomePage = () => {
                   <p className="product-name">{p.name}</p>
                   <Link to="/product/banarasi-silk-saree" className="btn-outline" onClick={(e) => e.stopPropagation()}>View details</Link>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
