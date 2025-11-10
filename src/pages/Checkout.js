@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
+import { useBuyNow } from '../context/BuyNowContext';
 import '../styles/common.css';
 import '../styles/checkout.css';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getCartTotal } = useCart();
+  const { buyNowItem } = useBuyNow();
+  const toast = useToast();
   const [email, setEmail] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
@@ -14,56 +18,63 @@ const Checkout = () => {
 
   useEffect(() => {
     // Get current user
-    try {
-      const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      setCurrentUser(user);
-      
-      if (user && (user.name || user.email)) {
-        const username = user.name || user.email;
-        const profile = JSON.parse(localStorage.getItem(`userProfile_${username}`) || '{}');
-        setUserProfile(profile);
-        setEmail(profile.email || user.email || '');
+    if (typeof window !== 'undefined') {
+      try {
+        const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        setCurrentUser(user);
         
-        // Try to get address from localStorage (if saved) or use a default
-        const savedAddresses = localStorage.getItem(`addresses_${username}`);
-        if (savedAddresses) {
-          try {
-            const addresses = JSON.parse(savedAddresses);
-            if (addresses.length > 0) {
-              setSelectedAddress(addresses[0]);
+        if (user && (user.name || user.email)) {
+          const username = user.name || user.email;
+          const profile = JSON.parse(localStorage.getItem(`userProfile_${username}`) || '{}');
+          setUserProfile(profile);
+          setEmail(profile.email || user.email || '');
+          
+          // Try to get address from localStorage (if saved) or use a default
+          const savedAddresses = localStorage.getItem(`addresses_${username}`);
+          if (savedAddresses) {
+            try {
+              const addresses = JSON.parse(savedAddresses);
+              if (addresses.length > 0) {
+                setSelectedAddress(addresses[0]);
+              }
+            } catch (e) {
+              // Use default address if parsing fails
+              setSelectedAddress({
+                label: 'Home',
+                address: profile.address || 'Address not set'
+              });
             }
-          } catch (e) {
-            // Use default address if parsing fails
+          } else if (profile.address) {
+            // Use address from profile if available
             setSelectedAddress({
               label: 'Home',
-              address: profile.address || 'Address not set'
+              address: profile.address
+            });
+          } else {
+            // Default address
+            setSelectedAddress({
+              label: 'Home',
+              address: 'No address saved. Please add an address to continue.'
             });
           }
-        } else if (profile.address) {
-          // Use address from profile if available
-          setSelectedAddress({
-            label: 'Home',
-            address: profile.address
-          });
-        } else {
-          // Default address
-          setSelectedAddress({
-            label: 'Home',
-            address: 'No address saved. Please add an address to continue.'
-          });
         }
+      } catch (e) {
+        // Handle errors silently during build
       }
-    } catch (e) {
-      console.error('Error loading user data:', e);
     }
   }, []);
 
-  const total = getCartTotal();
+  const itemsToPurchase = buyNowItem ? [buyNowItem] : cartItems;
+  const total = itemsToPurchase.reduce((sum, item) => {
+    const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
+    const qty = item.quantity || 1;
+    return sum + price * qty;
+  }, 0);
   const platformFee = 5;
   const totalPayable = total + platformFee;
 
   // Calculate original total for savings (assuming 50% average discount)
-  const originalTotal = cartItems.reduce((sum, item) => {
+  const originalTotal = itemsToPurchase.reduce((sum, item) => {
     const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
     const qty = item.quantity || 1;
     return sum + (price * 2 * qty); // Assuming 50% discount
@@ -72,10 +83,21 @@ const Checkout = () => {
 
   const handleContinue = () => {
     if (!email) {
-      alert('Please enter your email address');
+      toast.error('Please enter your email address', 3000);
       return;
     }
-    navigate('/payment');
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address', 3000);
+      return;
+    }
+    
+    toast.success('Proceeding to payment...', 2000);
+    setTimeout(() => {
+      navigate('/payment');
+    }, 500);
   };
 
   const getDeliveryDate = () => {
@@ -86,7 +108,7 @@ const Checkout = () => {
     return `${days[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()}`;
   };
 
-  if (cartItems.length === 0) {
+  if (!buyNowItem && cartItems.length === 0) {
     return (
       <div className="checkout-container">
         <div className="empty-checkout">
@@ -156,7 +178,7 @@ const Checkout = () => {
               </div>
               <div className="section-body">
                 <div className="order-items">
-                  {cartItems.map((item) => {
+                  {itemsToPurchase.map((item) => {
                     const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
                     const qty = item.quantity || 1;
                     const originalPrice = price * 2; // Assuming 50% discount
@@ -181,25 +203,39 @@ const Checkout = () => {
                             <span className="discount-badge">{discountPercent}% Off</span>
                           </div>
                           <div className="item-actions">
-                            <div className="qty-controls-checkout">
-                              <button 
-                                className="qty-btn" 
-                                onClick={() => decrementQuantity(item.id)}
-                                disabled={qty <= 1}
-                              >
-                                −
-                              </button>
-                              <span className="qty-value">{qty}</span>
-                              <button 
-                                className="qty-btn" 
-                                onClick={() => incrementQuantity(item.id)}
-                              >
-                                +
-                              </button>
-                            </div>
-                            <button className="remove-item-btn" onClick={() => removeFromCart(item.id)}>
-                              REMOVE
-                            </button>
+                            {!buyNowItem ? (
+                              <>
+                                <div className="qty-controls-checkout">
+                                  <button 
+                                    className="qty-btn" 
+                                    onClick={() => decrementQuantity(item.id)}
+                                    disabled={qty <= 1}
+                                  >
+                                    −
+                                  </button>
+                                  <span className="qty-value">{qty}</span>
+                                  <button 
+                                    className="qty-btn" 
+                                    onClick={() => incrementQuantity(item.id)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                                <button 
+                                  className="remove-item-btn" 
+                                  onClick={() => {
+                                    removeFromCart(item.id);
+                                    toast.info(`${item.name} removed from cart`, 2000);
+                                  }}
+                                >
+                                  REMOVE
+                                </button>
+                              </>
+                            ) : (
+                              <div className="qty-controls-checkout">
+                                <span className="qty-value">Qty: {qty}</span>
+                              </div>
+                            )}
                           </div>
                           <div className="item-delivery">Delivery by {getDeliveryDate()}</div>
                         </div>
@@ -232,7 +268,7 @@ const Checkout = () => {
           <div className="price-details-card">
             <h3 className="price-details-title">PRICE DETAILS</h3>
             <div className="price-row">
-              <span>Price ({cartItems.length} item{cartItems.length !== 1 ? 's' : ''})</span>
+              <span>Price ({itemsToPurchase.length} item{itemsToPurchase.length !== 1 ? 's' : ''})</span>
               <span>${total.toFixed(2)}</span>
             </div>
             <div className="price-row">

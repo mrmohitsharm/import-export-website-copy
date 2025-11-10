@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
+import { useBuyNow } from '../context/BuyNowContext';
 import '../styles/common.css';
 import '../styles/payment.css';
 
 const Payment = () => {
   const navigate = useNavigate();
   const { cartItems, getCartTotal, clearCart } = useCart();
+  const { buyNowItem, clearBuyNowItem } = useBuyNow();
+  const toast = useToast();
   const [selectedMethod, setSelectedMethod] = useState(null);
   
-  const total = getCartTotal();
+  const itemsToPurchase = buyNowItem ? [buyNowItem] : cartItems;
+  const total = itemsToPurchase.reduce((sum, item) => {
+    const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
+    const qty = item.quantity || 1;
+    return sum + price * qty;
+  }, 0);
   const platformFee = 5;
   const totalPayable = total + platformFee;
 
@@ -54,17 +63,45 @@ const Payment = () => {
 
   const handlePayment = () => {
     if (!selectedMethod) {
-      alert('Please select a payment method');
+      toast.warning('Please select a payment method', 3000);
       return;
     }
 
-    // In a real app, you would process the payment here
-    alert(`Payment method selected: ${paymentMethods.find(m => m.id === selectedMethod)?.name}\n\nOrder placed successfully!`);
-    clearCart();
-    navigate('/');
+    const methodName = paymentMethods.find(m => m.id === selectedMethod)?.name;
+    
+    // Show processing toast
+    toast.info(`Processing payment via ${methodName}...`, 2000);
+    
+    // Simulate payment processing
+    setTimeout(() => {
+      // Save lightweight confirmation before clearing
+      try {
+        const orderSummary = {
+          items: itemsToPurchase,
+          subtotal: total,
+          platformFee,
+          totalPaid: totalPayable,
+          placedAt: new Date().toISOString(),
+        };
+        localStorage.setItem('orderConfirmation', JSON.stringify(orderSummary));
+      } catch {
+        // ignore
+      }
+
+      // Clear only buy-now selection if present; otherwise clear full cart
+      if (buyNowItem) {
+        clearBuyNowItem();
+      } else {
+        clearCart();
+      }
+      toast.success(`Order placed successfully! Payment processed via ${methodName}.`, 4000);
+      setTimeout(() => {
+        navigate('/order/confirmation', { replace: true });
+      }, 1000);
+    }, 2000);
   };
 
-  if (cartItems.length === 0) {
+  if (!buyNowItem && cartItems.length === 0) {
     return (
       <div className="payment-container">
         <div className="empty-payment">
@@ -175,7 +212,7 @@ const Payment = () => {
           <div className="order-summary-card">
             <h3>Order Summary</h3>
             <div className="summary-items">
-              {cartItems.map((item) => {
+              {itemsToPurchase.map((item) => {
                 const price = typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0;
                 const qty = item.quantity || 1;
                 return (

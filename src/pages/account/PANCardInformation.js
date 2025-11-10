@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useToast } from "../../context/ToastContext";
 import "../../styles/common.css";
 import "../../styles/account.css";
 
@@ -6,16 +7,26 @@ const PANCardInformation = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [panNumber, setPanNumber] = useState("ABCDE1234F");
   const [error, setError] = useState("");
+  const toast = useToast();
 
   const handleSave = () => {
     const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     if (!panPattern.test(panNumber)) {
-      setError("Please enter a valid PAN number.");
+      const errorMsg = "Please enter a valid PAN number.";
+      setError(errorMsg);
+      toast.error(errorMsg, 3000);
       return;
     }
     setError("");
     setIsEditing(false);
-    localStorage.setItem("userPAN", panNumber);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem("userPAN", panNumber);
+        toast.success('PAN card information saved successfully!', 3000);
+      } catch (e) {
+        toast.error('Failed to save PAN information', 3000);
+      }
+    }
   };
 
   return (

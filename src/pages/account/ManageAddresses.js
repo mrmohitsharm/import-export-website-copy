@@ -1,28 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useToast } from "../../context/ToastContext";
 import "../../styles/common.css";
 import "../../styles/account.css";
 
 const ManageAddresses = () => {
-  const [addresses, setAddresses] = useState([
-    { id: 1, label: "Home", address: "123 Main St, New Delhi, India" },
-  ]);
+  const toast = useToast();
+  const [addresses, setAddresses] = useState([]);
   const [form, setForm] = useState({ label: "", address: "" });
   const [editId, setEditId] = useState(null);
+
+  // Load addresses from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const username = currentUser.name || currentUser.email || "User";
+        const savedAddresses = localStorage.getItem(`addresses_${username}`);
+        if (savedAddresses) {
+          setAddresses(JSON.parse(savedAddresses));
+        } else {
+          // Default address if none exists
+          setAddresses([{ id: 1, label: "Home", address: "123 Main St, New Delhi, India" }]);
+        }
+      } catch (e) {
+        setAddresses([{ id: 1, label: "Home", address: "123 Main St, New Delhi, India" }]);
+      }
+    }
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleAddOrEdit = () => {
-    if (!form.label || !form.address) return;
+    if (!form.label.trim() || !form.address.trim()) {
+      toast.error('Please fill in both label and address', 3000);
+      return;
+    }
+    
     if (editId !== null) {
-      setAddresses((prev) => prev.map((item) => (item.id === editId ? { ...item, ...form } : item)));
+      setAddresses((prev) => {
+        const updated = prev.map((item) => (item.id === editId ? { ...item, ...form } : item));
+        saveAddresses(updated);
+        return updated;
+      });
       setEditId(null);
+      toast.success('Address updated successfully!', 2500);
     } else {
-      const newAddress = { id: Date.now(), label: form.label, address: form.address };
-      setAddresses([...addresses, newAddress]);
+      const newAddress = { id: Date.now(), label: form.label.trim(), address: form.address.trim() };
+      const updated = [...addresses, newAddress];
+      setAddresses(updated);
+      saveAddresses(updated);
+      toast.success('Address added successfully!', 2500);
     }
     setForm({ label: "", address: "" });
+  };
+
+  const saveAddresses = (addressList) => {
+    if (typeof window !== 'undefined') {
+      try {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const username = currentUser.name || currentUser.email || "User";
+        localStorage.setItem(`addresses_${username}`, JSON.stringify(addressList));
+      } catch (e) {
+        console.error('Error saving addresses:', e);
+      }
+    }
   };
 
   const handleEdit = (id) => {
@@ -30,11 +73,16 @@ const ManageAddresses = () => {
     if (addr) {
       setForm({ label: addr.label, address: addr.address });
       setEditId(id);
+      toast.info('Editing address...', 1500);
     }
   };
 
   const handleDelete = (id) => {
-    setAddresses((prev) => prev.filter((a) => a.id !== id));
+    const address = addresses.find((a) => a.id === id);
+    const updated = addresses.filter((a) => a.id !== id);
+    setAddresses(updated);
+    saveAddresses(updated);
+    toast.info(`${address?.label || 'Address'} deleted`, 2000);
     if (editId === id) {
       setForm({ label: "", address: "" });
       setEditId(null);

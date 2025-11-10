@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useToast } from '../context/ToastContext';
+import { useBuyNow } from '../context/BuyNowContext';
 import '../styles/common.css';
 import '../styles/banarasi-saree.css';
 
@@ -7,6 +11,11 @@ const BanarasiSilkSaree = () => {
   const [selectedSize, setSelectedSize] = useState('Standard');
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
+  const toast = useToast();
+  const { setBuyNowItem } = useBuyNow();
 
   // Product data
   const product = {
@@ -117,7 +126,19 @@ The rich color palette and intricate border design make this a statement piece t
   };
 
   const handleAddToCart = () => {
-    alert(`Added ${quantity} ${product.name} to cart!`);
+    const item = { ...product, quantity };
+    addToCart(item);
+    toast.success(`${product.name} added to cart`, 2500);
+  };
+  const handleBuyNow = () => {
+    const item = { ...product, quantity };
+    setBuyNowItem(item);
+    toast.success(`Proceeding to checkout...`, 2000);
+    navigate('/checkout');
+  };
+  const handleWishlist = () => {
+    addToWishlist(product);
+    toast.info(`${product.name} saved to wishlist`, 2500);
   };
 
   return (
@@ -234,10 +255,10 @@ The rich color palette and intricate border design make this a statement piece t
                   <span className="material-symbols-outlined">shopping_cart</span>
                   Add to Cart
                 </button>
-                <button className="btn-buy-now">
+                <button className="btn-buy-now" onClick={handleBuyNow}>
                   Buy Now
                 </button>
-                <button className="btn-wishlist">
+                <button className="btn-wishlist" onClick={handleWishlist}>
                   <span className="material-symbols-outlined">favorite</span>
                 </button>
               </div>

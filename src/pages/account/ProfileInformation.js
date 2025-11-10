@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from "react";
+import { useToast } from "../../context/ToastContext";
 import "../../styles/common.css";
 import "../../styles/account.css";
 
 const ProfileInformation = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [profile, setProfile] = useState({ name: "", email: "", contact: "" });
+  const toast = useToast();
 
   const loadUserProfile = (username) => {
-    const data = localStorage.getItem(`userProfile_${username}`);
-    if (data) {
-      const parsed = JSON.parse(data);
-      setProfile({ ...parsed, name: username });
-    } else {
-      setProfile({ name: username, email: "", contact: "" });
+    if (typeof window !== 'undefined') {
+      try {
+        const data = localStorage.getItem(`userProfile_${username}`);
+        if (data) {
+          const parsed = JSON.parse(data);
+          setProfile({ ...parsed, name: username });
+        } else {
+          setProfile({ name: username, email: "", contact: "" });
+        }
+      } catch (e) {
+        setProfile({ name: username, email: "", contact: "" });
+      }
     }
   };
 
   useEffect(() => {
-    const saved = localStorage.getItem("currentUser");
-    const initialName = saved ? (JSON.parse(saved).name || JSON.parse(saved).email || "User") : "";
-    setCurrentUser(initialName);
-    loadUserProfile(initialName);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem("currentUser");
+        const initialName = saved ? (JSON.parse(saved).name || JSON.parse(saved).email || "User") : "";
+        setCurrentUser(initialName);
+        loadUserProfile(initialName);
+      } catch (e) {
+        setCurrentUser("User");
+      }
+    }
   }, []);
 
   const handleUserChange = (e) => {
@@ -34,7 +48,26 @@ const ProfileInformation = () => {
   };
 
   const handleSave = () => {
-    localStorage.setItem(`userProfile_${profile.name}`, JSON.stringify(profile));
+    if (!profile.name.trim() || !profile.email.trim()) {
+      toast.error('Please fill in all required fields', 3000);
+      return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(profile.email)) {
+      toast.error('Please enter a valid email address', 3000);
+      return;
+    }
+    
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(`userProfile_${profile.name}`, JSON.stringify(profile));
+        toast.success('Profile information saved successfully!', 3000);
+      } catch (e) {
+        toast.error('Failed to save profile information', 3000);
+      }
+    }
   };
 
   return (

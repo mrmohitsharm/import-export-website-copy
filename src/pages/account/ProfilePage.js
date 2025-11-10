@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/common.css";
 import "../../styles/account.css";
 
 const ProfilePage = () => {
-  const current = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  const name = current.name || current.email || "username";
+  const [name, setName] = useState("User");
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const current = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        setName(current.name || current.email || "User");
+      } catch (e) {
+        setName("User");
+      }
+    }
+  }, []);
 
   return (
     <div className="container" style={{ maxWidth: 320, padding: 20 }}>

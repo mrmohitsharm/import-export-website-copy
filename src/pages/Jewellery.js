@@ -1,29 +1,88 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useToast } from '../context/ToastContext';
+import { useBuyNow } from '../context/BuyNowContext';
+import { getProductsByCategory } from '../data/products';
 import '../styles/common.css';
 import '../styles/textiles.css';
+import '../styles/jewellery.css';
 
 const Jewellery = () => {
   const { addToCart } = useCart();
-  
-  // All product image paths are corrected to public-root relative URLs
-  const allProducts = [
-    { id: 1, name: 'Six Pack Ring', category: 'Textiles', subCategory: 'Ring', price: 500, material: 'Gold', image: '/images/jewellery section/sixpackring.png' },
-    { id: 2, name: 'Valentina Earrings', category: 'Textiles', subCategory: 'Earrings', price: 350, material: 'Platinum', image: '/images/jewellery section/925SilverValentinaEarrings.png' },
-    { id: 3, name: 'JEWELLERY', category: 'Textiles', subCategory: 'Earrings', price: 185, material: 'Silver', image: '/images/jewellery section/VALLEYOFJEWELLERY.png' },
-    { id: 4, name: 'Korean Earrings', category: 'Textiles', subCategory: 'Earrings', price: 400, material: 'Silver', image: '/images/jewellery section/DiamondPearlCurvedZirconKoreanEarrings.png' },
-    { id: 5, name: 'Diamond Necklace', category: 'Textiles', subCategory: 'Necklace', price: 1000, material: 'Diamonds', image: '/images/jewellery section/DiamondNecklaceSets.png' },
-    { id: 6, name: 'Bridal Necklace Sets', category: 'Textiles', subCategory: 'Necklace', price: 705, material: 'Gold', image: '/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png' },
-    { id: 7, name: 'Silver Necklace', category: 'Textiles', subCategory: 'Necklace', price: 490, material: 'Silver', image: '/images/jewellery section/SterlingSilverLadiesNecklace.png' },
-    { id: 9, name: 'Platinum Band', category: 'Textiles', subCategory: 'HandBand', price: 520, material: 'Platinum', image: '/images/jewellery section/OrlandoPlatinumBand.png' },
-    { id: 11, name: 'Gold Ring', category: 'Textiles', subCategory: 'Ring', price: 545, material: 'Gold', image: '/images/jewellery section/GoldRing.png' },
-    { id: 12, name: 'Earrings with Beads', category: 'Textiles', subCategory: 'Earrings', price: 100, material: 'Gold', image: '/images/jewellery section/EarringswithBeadsforWomen.png' },
-    { id: 13, name: 'Gold Chain For Men', category: 'Textiles', subCategory: 'Chain', price: 240, material: 'Gold', image: '/images/jewellery section/GoldChainForMen.png' },
-    { id: 14, name: 'Gold Polished Chain', category: 'Textiles', subCategory: 'Chain', price: 100, material: 'Gold', image: '/images/jewellery section/PolishedByGold.png' },
-  ];
+  const { addToWishlist } = useWishlist();
+  const { setBuyNowItem } = useBuyNow();
+  const toast = useToast();
 
-  const textilesProducts = allProducts.filter(p => p.category === 'Textiles');
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast.success(`${product.name} added to cart!`, 2500);
+  };
+  const handleWishlist = (product) => {
+    addToWishlist(product);
+    toast.info(`${product.name} saved to wishlist`, 2500);
+  };
+  const handleBuyNow = (product) => {
+    const item = { ...product, quantity: 1 };
+    setBuyNowItem(item);
+    toast.success(`Proceeding to checkout with ${product.name}`, 2000);
+    window.location.href = '/checkout';
+  };
+  
+  // Get jewellery products from centralized data
+  const jewelleryProducts = getProductsByCategory('Jewellery');
+
+  // Filters state
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [material, setMaterial] = useState('all');
+  const [type, setType] = useState('all');
+  const [sort, setSort] = useState('featured');
+
+  // Build filter options
+  const materials = useMemo(() => {
+    const set = new Set(jewelleryProducts.map(p => (p.material || '').toString()));
+    return ['all', ...Array.from(set).filter(Boolean)];
+  }, [jewelleryProducts]);
+
+  const types = useMemo(() => {
+    const set = new Set(jewelleryProducts.map(p => (p.subCategory || '').toString()));
+    return ['all', ...Array.from(set).filter(Boolean)];
+  }, [jewelleryProducts]);
+
+  // Apply filters + sorting
+  const filteredProducts = useMemo(() => {
+    let list = [...jewelleryProducts];
+    const min = minPrice ? parseFloat(minPrice) : null;
+    const max = maxPrice ? parseFloat(maxPrice) : null;
+    if (min !== null && !Number.isNaN(min)) {
+      list = list.filter(p => (typeof p.price === 'number' ? p.price : parseFloat(String(p.price).replace(/[^0-9.]/g, '')) || 0) >= min);
+    }
+    if (max !== null && !Number.isNaN(max)) {
+      list = list.filter(p => (typeof p.price === 'number' ? p.price : parseFloat(String(p.price).replace(/[^0-9.]/g, '')) || 0) <= max);
+    }
+    if (material !== 'all') {
+      list = list.filter(p => (p.material || '').toString().toLowerCase() === material.toLowerCase());
+    }
+    if (type !== 'all') {
+      list = list.filter(p => (p.subCategory || '').toString().toLowerCase() === type.toLowerCase());
+    }
+    switch (sort) {
+      case 'price-asc':
+        list.sort((a, b) => (a.price || 0) - (b.price || 0));
+        break;
+      case 'price-desc':
+        list.sort((a, b) => (b.price || 0) - (a.price || 0));
+        break;
+      case 'name-asc':
+        list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        break;
+      default:
+        break;
+    }
+    return list;
+  }, [jewelleryProducts, minPrice, maxPrice, material, type, sort]);
 
   const categoryInfo = {
     title: 'Jewellery',
@@ -82,21 +141,67 @@ const Jewellery = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="textiles-featured">
+      <section className="textiles-featured jewellery-featured">
         <div className="textiles-container">
-          <h2>All {categoryInfo.title}</h2>
-          <p className="textiles-muted">Browse our curated selection of textiles</p>
-          <div className="products-grid">
-            {textilesProducts.map((p) => (
+          <div className="jewel-head">
+            <h2>All {categoryInfo.title}</h2>
+            <p className="textiles-muted">Browse our curated selection of {categoryInfo.title.toLowerCase()}</p>
+          </div>
+
+          {/* Filter Bar */}
+          <div className="jewel-filters">
+            <div className="filter-group">
+              <label>Price</label>
+              <div className="price-inputs">
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                />
+                <span className="price-sep">—</span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="filter-group">
+              <label>Material</label>
+              <select value={material} onChange={(e) => setMaterial(e.target.value)}>
+                {materials.map(m => <option key={m} value={m}>{m === 'all' ? 'All' : m}</option>)}
+              </select>
+            </div>
+            <div className="filter-group">
+              <label>Type</label>
+              <select value={type} onChange={(e) => setType(e.target.value)}>
+                {types.map(t => <option key={t} value={t}>{t === 'all' ? 'All' : t}</option>)}
+              </select>
+            </div>
+            <div className="filter-group">
+              <label>Sort</label>
+              <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="products-grid jewellery-grid">
+            {filteredProducts.map((p) => (
               <div key={p.id} className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
-                  <span className="price-badge price-badge--sm">${p.price}</span>
+                  <span className="price-badge price-badge--sm jewel-price">${p.price}</span>
                 </div>
                 <div className="product-info">
                   <div>
-                    <p className="card-category">{p.subCategory || 'Textiles'}</p>
-                    <p className="card-title">{p.name}</p>
+                    <p className="card-category jewel-category">{p.subCategory || categoryInfo.title}</p>
+                    <p className="card-title jewel-title">{p.name}</p>
                     <p className="card-sub">{p.material}</p>
                   </div>
                   <div className="product-actions">
@@ -105,11 +210,30 @@ const Jewellery = () => {
                       className="btn-primary add-cart-btn" 
                       onClick={(e) => {
                         e.stopPropagation();
-                        addToCart(p);
+                        handleAddToCart(p);
                       }}
                     >
                       <span className="material-symbols-outlined">shopping_cart</span>
-                      Add
+                      Add to Cart
+                    </button>
+                    <button 
+                      className="btn-outline"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleBuyNow(p);
+                      }}
+                    >
+                      Buy Now
+                    </button>
+                    <button 
+                      className="btn-outline"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleWishlist(p);
+                      }}
+                    >
+                      <span className="material-symbols-outlined">favorite</span>
+                      Wishlist
                     </button>
                   </div>
                 </div>

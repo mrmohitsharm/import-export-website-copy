@@ -15,17 +15,25 @@ export const CartProvider = ({ children }) => {
 
   // Load cart items from localStorage on mount
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('cartItems') || '[]');
-      setCartItems(Array.isArray(saved) ? saved : []);
-    } catch (e) {
-      setCartItems([]);
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = JSON.parse(localStorage.getItem('cartItems') || '[]');
+        setCartItems(Array.isArray(saved) ? saved : []);
+      } catch (e) {
+        setCartItems([]);
+      }
     }
   }, []);
 
   // Save to localStorage whenever cartItems change
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      } catch (e) {
+        // Handle storage errors silently
+      }
+    }
   }, [cartItems]);
 
   const addToCart = (product) => {

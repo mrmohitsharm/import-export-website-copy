@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 import '../styles/contact.css';
 import '../styles/common.css';
 
@@ -9,6 +10,7 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,11 +19,25 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error('Please fill in all required fields', 3000);
+      return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Please enter a valid email address', 3000);
+      return;
+    }
+    
     // Here you would typically send the form data to your backend
     console.log('Form submitted:', formData);
     
     // Show success message
-    alert("Message Sent! We'll get back to you as soon as possible.");
+    toast.success("Message sent! We'll get back to you as soon as possible.", 4000);
     
     // Reset form
     setFormData({

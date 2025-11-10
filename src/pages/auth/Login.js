@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { authenticateUser, setCurrentUser } from "../../utils/auth";
+import { useToast } from "../../context/ToastContext";
 import "../../styles/common.css";
 import "../../styles/auth.css";
 
@@ -12,19 +14,46 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError("Both fields are required.");
+    setError(null);
+    
+    // Validate fields
+    if (!email.trim() || !password) {
+      setError("Both email and password are required.");
       return;
     }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    
     setLoading(true);
+    
+    // Authenticate the user
+    const result = authenticateUser(email, password);
+    
     setTimeout(() => {
-      localStorage.setItem("currentUser", JSON.stringify({ email }));
       setLoading(false);
-      const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
-      navigate(redirectTo, { replace: true });
+      
+      if (result.success) {
+        // Set current user and redirect
+        setCurrentUser(result.user);
+        toast.success(`Welcome back, ${result.user.name || result.user.email}!`, 3000);
+        const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
+        setTimeout(() => {
+          navigate(redirectTo, { replace: true });
+        }, 500);
+      } else {
+        const errorMsg = result.error || "Login failed. Please check your credentials.";
+        setError(errorMsg);
+        toast.error(errorMsg, 4000);
+      }
     }, 800);
   };
 

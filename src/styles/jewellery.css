@@ -1,0 +1,103 @@
+/* Jewellery Premium Styles */
+
+.jewellery-featured {
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  padding-top: 56px;
+}
+
+.jewel-head h2 {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: 0.2px;
+}
+
+.jewel-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, auto));
+  gap: 14px;
+  padding: 14px;
+  margin: 14px 0 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+}
+
+.jewel-filters .filter-group {
+  display: grid;
+  gap: 8px;
+}
+
+.jewel-filters label {
+  font-size: 12px;
+  color: #6b7280;
+  letter-spacing: 0.25px;
+}
+
+.jewel-filters select,
+.jewel-filters input[type="number"] {
+  height: 38px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.jewel-filters select:focus,
+.jewel-filters input[type="number"]:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.price-inputs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-sep {
+  color: #9ca3af;
+  font-weight: 700;
+}
+
+.jewellery-grid .product-card {
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.jewellery-grid .product-card:hover {
+  border-color: #f0e6c8;
+  box-shadow: 0 18px 40px rgba(212, 175, 55, 0.12);
+  transform: translateY(-6px);
+}
+
+.jewel-price {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111827;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.2);
+}
+
+.jewel-category {
+  color: #6b7280;
+}
+
+.jewel-title {
+  color: #111827;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+@media (max-width: 768px) {
+  .jewel-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+

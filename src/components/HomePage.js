@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { allProducts } from "../data/products";
 import "../styles/homepage.css";
 import "../styles/common.css";
 
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Get featured products (first 10 products)
+  const featuredProducts = allProducts.slice(0, 10);
 
   const heroSlides = [
     {
@@ -97,55 +101,18 @@ const HomePage = () => {
         <div className="container">
           <h2 className="section-title">New Arrivals</h2>
           <div className="products-grid">
-            {[
-              { id: 1, name: "Banarasi Silk Saree", price: "$250", image: "https://i.etsystatic.com/22698705/r/il/3ee0e4/2782061663/il_fullxfull.2782061663_3131.jpg" },
-              { id: 2, name: "Oxidized Anklet", price: "$85", image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1400&auto=format&fit=crop" },
-              { id: 3, name: "Kundan Necklace Set", price: "$320", image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1400&auto=format&fit=crop" },
-              { id: 4, name: "Embroidered Clutch", price: "$120", image: "/images/EmbroideredClutch.png" },
-              { id: 5, name: "Pashmina Shawl", price: "$180", image: "/images/Pashmina-Shawl.png" },
-              { id: 6, name: "Bridal Lehenga", price: "$350", image: "/images/0.png" },
-              { id: 7, name: "Gold Chain For Men", price: "$240", image: "/images/jewellery section/GoldChainForMen.png" },
-              { id: 8, name: "Chanderi Cotton Fabric", price: "$120", image: "/images/Chanderi-Cotton-Fabric.png" },
-              { id: 9, name: "Bridal Necklace Sets", price: "$705", image: "/images/jewellery section/BeautifulantiqueBridalNecklaceSets.png" },
-              { id: 10, name: "Hand Block Scarf", price: "$45", image: "/images/Hand-Block-Printed-Scarf.png" },
-            ].map((p) => (
+            {featuredProducts.map((p) => (
               <div key={p.id} className="product-card">
                 <div className="product-image-wrap">
                   <img src={p.image} alt={p.name} />
-                  <span className="price-badge">{p.price}</span>
+                  <span className="price-badge">${p.price}</span>
                 </div>
                 <div className="product-info">
                   <p className="product-name">{p.name}</p>
-                  <Link to="/product/banarasi-silk-saree" className="btn-outline" onClick={(e) => e.stopPropagation()}>View details</Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="testimonials-section">
-        <div className="container">
-          <h2 className="section-title">What Our Customers Say</h2>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial-header">
-                  <div className="testimonial-author">
-                    <img src={testimonial.image} alt={testimonial.name} />
-                    <div className="author-info">
-                      <p className="author-name">{testimonial.name}</p>
-                      <p className="author-role">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <div className="testimonial-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="material-symbols-outlined">star</span>
-                    ))}
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                    <Link to="/product/banarasi-silk-saree" className="btn-outline" onClick={(e) => e.stopPropagation()}>View details</Link>
                   </div>
                 </div>
-                <p className="testimonial-quote">"{testimonial.quote}"</p>
               </div>
             ))}
           </div>
@@ -182,6 +149,34 @@ const HomePage = () => {
               <p className="benefit-title">Easy Returns</p>
               <p className="benefit-sub">Hassle-free process</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials (moved lower for prioritizing New Arrivals) */}
+      <section className="testimonials-section">
+        <div className="container">
+          <h2 className="section-title">What Our Customers Say</h2>
+          <div className="testimonials-grid">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="testimonial-card">
+                <div className="testimonial-header">
+                  <div className="testimonial-author">
+                    <img src={testimonial.image} alt={testimonial.name} />
+                    <div className="author-info">
+                      <p className="author-name">{testimonial.name}</p>
+                      <p className="author-role">{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <div className="testimonial-rating">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="material-symbols-outlined">star</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="testimonial-quote">"{testimonial.quote}"</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

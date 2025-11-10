@@ -233,6 +233,15 @@
   border-radius: 8px;
 }
 
+.success-message {
+  color: #10b981;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  background: #f0fdf4;
+  border-radius: 8px;
+}
+
 .auth-footer {
   text-align: center;
   margin-top: 24px;

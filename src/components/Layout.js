@@ -1,14 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import '../styles/header.css';
 import '../styles/footer.css';
 import '../styles/common.css';
 
 const Layout = ({ children }) => {
   const { getCartCount } = useCart();
+  const { getWishlistCount } = useWishlist();
   const cartCount = getCartCount();
+  const wishlistCount = getWishlistCount();
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm(''); // Clear search after navigating
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <>
@@ -33,10 +50,23 @@ const Layout = ({ children }) => {
             <Link to="/contact" className="nav-link">Contact</Link>
           </nav>
           
-          <div className="search_bar">
-            <span className="material-symbols-outlined search_icon">search</span>
-            <input className="search_input" placeholder="Search " />
-          </div>
+          <form className="search_bar" onSubmit={handleSearch}>
+            <button type="submit" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <span className="material-symbols-outlined search_icon">search</span>
+            </button>
+            <input 
+              className="search_input" 
+              placeholder="Search products..." 
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <div className="header-quick-icons">
+              <Link to="/wishlist" className="action-link wishlist-link" aria-label="Wishlist">
+                <span className="material-symbols-outlined">favorite</span>
+                {wishlistCount > 0 && <span className="wishlist-badge">{wishlistCount}</span>}
+              </Link>
+            </div>
+          </form>
           
           <div className="header-actions">
             <Link to="/profile" className="action-link">

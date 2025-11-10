@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { registerUser, setCurrentUser } from "../../utils/auth";
+import { useToast } from "../../context/ToastContext";
 import "../../styles/common.css";
 import "../../styles/auth.css";
 
@@ -12,25 +14,63 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !email || !password) {
+    setError(null);
+    setSuccess(false);
+    
+    // Validate all fields are filled
+    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
       setError("Please fill all fields.");
       return;
     }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
       return;
     }
+    
+    // Validate password match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match. Please try again.");
+      return;
+    }
+    
+    // Validate password length
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+    
     setLoading(true);
+    
+    // Register the user
+    const result = registerUser(name, email, password);
+    
     setTimeout(() => {
-      localStorage.setItem("currentUser", JSON.stringify({ name, email }));
       setLoading(false);
-      const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
-      navigate(redirectTo, { replace: true });
+      
+      if (result.success) {
+        // Set current user and redirect
+        setCurrentUser({ name: result.user.name, email: result.user.email });
+        setSuccess(true);
+        toast.success(`Account created successfully! Welcome, ${result.user.name}!`, 3000);
+        const redirectTo = (location.state && location.state.from) ? location.state.from : "/account/profile";
+        setTimeout(() => {
+          navigate(redirectTo, { replace: true });
+        }, 500);
+      } else {
+        const errorMsg = result.error || "Registration failed. Please try again.";
+        setError(errorMsg);
+        toast.error(errorMsg, 4000);
+      }
     }, 800);
   };
 
@@ -102,6 +142,7 @@ const SignUp = () => {
               </span>
             </div>
             {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">Account created successfully! Redirecting...</div>}
             <button type="submit" className="btn-signin" disabled={loading}>
               {loading ? "Signing Up..." : "Sign Up"}
             </button>
