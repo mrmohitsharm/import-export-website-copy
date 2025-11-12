@@ -13,30 +13,34 @@ export const useToast = () => {
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type = 'info', duration = 3000) => {
-    const id = Date.now() + Math.random();
-    const newToast = {
-      id,
-      message,
-      type, // 'success', 'error', 'info', 'warning'
-      duration,
-    };
-
-    setToasts((prev) => [...prev, newToast]);
-
-    // Auto remove toast after duration
-    if (duration > 0) {
-      setTimeout(() => {
-        removeToast(id);
-      }, duration);
-    }
-
-    return id;
-  }, );
-
+  // FIXED: showToast uses removeToast, so add it to dependency array
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
+
+  const showToast = useCallback(
+    (message, type = 'info', duration = 3000) => {
+      const id = Date.now() + Math.random();
+      const newToast = {
+        id,
+        message,
+        type, // 'success', 'error', 'info', 'warning'
+        duration,
+      };
+
+      setToasts((prev) => [...prev, newToast]);
+
+      // Auto remove toast after duration
+      if (duration > 0) {
+        setTimeout(() => {
+          removeToast(id);
+        }, duration);
+      }
+
+      return id;
+    },
+    [removeToast]
+  );
 
   // Convenience methods
   const success = useCallback((message, duration) => {
@@ -88,7 +92,8 @@ const ToastContainer = ({ toasts, removeToast }) => {
 const Toast = ({ toast, removeToast }) => {
   const [isExiting, setIsExiting] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    if (e) e.stopPropagation();
     setIsExiting(true);
     setTimeout(() => {
       removeToast(toast.id);
@@ -134,5 +139,3 @@ const Toast = ({ toast, removeToast }) => {
     </div>
   );
 };
-
-
