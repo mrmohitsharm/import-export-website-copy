@@ -32,7 +32,7 @@ export const ToastProvider = ({ children }) => {
     }
 
     return id;
-  }, []);
+  }, );
 
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
