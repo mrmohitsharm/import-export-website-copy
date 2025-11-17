@@ -8,7 +8,7 @@ import '../styles/checkout.css';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { cartItems, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
+  const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getCartTotal } = useCart();
   const { buyNowItem } = useBuyNow();
   const toast = useToast();
   const [email, setEmail] = useState('');

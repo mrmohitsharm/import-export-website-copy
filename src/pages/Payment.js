@@ -8,7 +8,7 @@ import '../styles/payment.css';
 
 const Payment = () => {
   const navigate = useNavigate();
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, getCartTotal, clearCart } = useCart();
   const { buyNowItem, clearBuyNowItem } = useBuyNow();
   const toast = useToast();
   const [selectedMethod, setSelectedMethod] = useState(null);
