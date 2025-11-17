@@ -93,10 +93,15 @@ const Layout = ({ children }) => {
             <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
             <br/>
             <Link to="/about" onClick={() => setMobileOpen(false)}>About</Link>
+            <br/>
             <Link to="/textiles" onClick={() => setMobileOpen(false)}>Textiles</Link>
+             <br/>
             <Link to="/jewellery" onClick={() => setMobileOpen(false)}>Jewellery</Link>
+             <br/>
             <Link to="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+             <br/>
             <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+             <br/>
           </div>
         )}
 
