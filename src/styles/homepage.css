@@ -548,10 +548,12 @@
 }
 
 .newsletter-input {
-  flex: 1;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
+ padding: 12px 18px;
+    background: #f8f7f7;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .newsletter-button {

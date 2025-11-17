@@ -89,6 +89,7 @@ const Layout = ({ children }) => {
 
         {/* MOBILE MENU DROPDOWN */}
         {mobileOpen && (
+          
           <div className="mobile-menu">
             <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
             <br/>
