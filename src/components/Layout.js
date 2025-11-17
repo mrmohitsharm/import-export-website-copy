@@ -14,33 +14,38 @@ const Layout = ({ children }) => {
   const wishlistCount = getWishlistCount();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
-      setSearchTerm(''); // Clear search after navigating
+      setSearchTerm('');
     }
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
   };
 
   return (
     <>
-      {/* Announcement Bar */}
-     
-
       {/* Header */}
       <header className="main-header">
         <div className="header-container">
+
+          {/* Hamburger (Mobile Only) */}
+          <button
+            className="hamburger"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+
+          {/* Logo */}
           <div className="logo_container">
             <Link to="/" className="logo-link">
               Global Exports
             </Link>
           </div>
-          
+
+          {/* Desktop Menu */}
           <nav className="nav_bar">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/about" className="nav-link">About</Link>
@@ -49,25 +54,27 @@ const Layout = ({ children }) => {
             <Link to="/blog" className="nav-link">Blog</Link>
             <Link to="/contact" className="nav-link">Contact</Link>
           </nav>
-          
+
+          {/* Search + Wishlist */}
           <form className="search_bar" onSubmit={handleSearch}>
-            <button type="submit" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-              <span className="material-symbols-outlined search_icon">search</span>
+            <button type="submit" className="search-btn">
+              <span className="material-symbols-outlined">search</span>
             </button>
-            <input 
-              className="search_input" 
-              placeholder="Search products..." 
+
+            <input
+              className="search_input"
+              placeholder="Search products..."
               value={searchTerm}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <div className="header-quick-icons">
-              <Link to="/wishlist" className="action-link wishlist-link" aria-label="Wishlist">
-                <span className="material-symbols-outlined">favorite</span>
-                {wishlistCount > 0 && <span className="wishlist-badge">{wishlistCount}</span>}
-              </Link>
-            </div>
+
+            <Link to="/wishlist" className="action-link wishlist-link">
+              <span className="material-symbols-outlined">favorite</span>
+              {wishlistCount > 0 && <span className="wishlist-badge">{wishlistCount}</span>}
+            </Link>
           </form>
-          
+
+          {/* Profile + Cart */}
           <div className="header-actions">
             <Link to="/profile" className="action-link">
               <span className="material-symbols-outlined">person</span>
@@ -77,15 +84,24 @@ const Layout = ({ children }) => {
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>
           </div>
+
         </div>
+
+        {/* MOBILE MENU DROPDOWN */}
+        {mobileOpen && (
+          <div className="mobile-menu">
+            <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
+            <Link to="/about" onClick={() => setMobileOpen(false)}>About</Link>
+            <Link to="/textiles" onClick={() => setMobileOpen(false)}>Textiles</Link>
+            <Link to="/jewellery" onClick={() => setMobileOpen(false)}>Jewellery</Link>
+            <Link to="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+            <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+          </div>
+        )}
+
       </header>
 
-      {/* Main Content */}
-      <main>
-        {children}
-      </main>
-
-      {/* Footer */}
+      <main>{children}</main>
       <Footer />
     </>
   );

@@ -186,19 +186,19 @@
     height: 70px;
     gap: 15px;
   }
-  
+
   .nav_bar {
     display: none;
   }
-  
+
   .search_bar {
     min-width: 200px;
   }
-  
+
   .logo-link {
     font-size: 24px;
   }
-  
+
   .announcement-content {
     gap: 20px;
     font-size: 12px;
@@ -209,11 +209,11 @@
   .search_bar {
     min-width: 150px;
   }
-  
+
   .header-actions {
     gap: 10px;
   }
-  
+
   .action-link {
     width: 35px;
     height: 35px;
