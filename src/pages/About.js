@@ -11,19 +11,15 @@ const About = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-muted/30 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-6 text-primary">About Us – Global Exports</h1>
-          <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            At Global Exports, we celebrate India’s timeless artistry by taking its handicrafts, textiles, and jewellery to the world. 
-            Founded on the principles of authenticity and excellence, we specialize in exporting handcrafted treasures that embody culture, craftsmanship, and creativity.
-            <br /><br />
-            Each product we trade tells a story — of skilled artisans, traditional techniques, and heritage passed through generations. 
-            From intricately woven fabrics to handcrafted jewellery and home décor, we ensure that every piece reflects India’s rich artistic legacy and meets global standards of quality and design.
-            <br /><br />
-            With a strong logistics network, ethical sourcing practices, and a passion for perfection, Global Exports has built enduring relationships with clients across continents. 
-            We don’t just export products — we export trust, beauty, and craftsmanship that transcends borders.
-          </p>
+       <section className="contact-hero-banner">
+        <img src="/images/raising.png" className="contact-banner-image" alt="Contact us" />
+        <div className="contact-banner-overlay">
+          <div className="contact-banner-content">
+            <h1 className="contact-banner-title">About Us – Global Exports</h1>
+            <p className="contact-banner-desc">
+             "Connecting Global Markets with Trusted Export–Import Solutions."
+            </p>
+          </div>
         </div>
       </section>
 

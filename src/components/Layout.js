@@ -31,13 +31,13 @@ const Layout = ({ children }) => {
         <div className="header-container">
 
           {/* Hamburger (Mobile Only) */}
-          <button
+ {/*         <button
             className="hamburger"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             <span className="material-symbols-outlined">menu</span>
           </button>
-
+*/}
           {/* Logo */}
           <div className="logo_container">
             <Link to="/" className="logo-link">
