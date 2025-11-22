@@ -57,9 +57,8 @@ const Layout = ({ children }) => {
 
           {/* Search + Wishlist */}
           <form className="search_bar" onSubmit={handleSearch}>
-            <button type="submit" className="search-btn">
-              <span className="material-symbols-outlined">search</span>
-            </button>
+            
+            
 
             <input
               className="search_input"
